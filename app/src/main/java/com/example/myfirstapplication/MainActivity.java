@@ -3,6 +3,7 @@ package com.example.myfirstapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +23,9 @@ public class MainActivity extends AppCompatActivity {
 
         Button btnQuitter = (Button) findViewById(R.id.btnQuitter);
         btnQuitter.setOnClickListener(btnQuitterOnClickListener);
+
+        Button btnAct2 = (Button) findViewById(R.id.btnAct2);
+        btnQuitter.setOnClickListener(btnAct2OnClickListener);
 
         popUp("onCreate()");
     }
@@ -124,6 +128,14 @@ public class MainActivity extends AppCompatActivity {
             popUp("valeur saisie = " + getTxtValeur());
         }
     };
+    View.OnClickListener btnAct2OnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(v.getContext(), SecondActivity.class);
+            startActivity(intent);
+            popUp("Bascule sur l'activité 2 ");
+        }
+    };
 
     public String getTxtValeur(){
         EditText zoneValeur = (EditText) findViewById(R.id.editTxtValeur);
@@ -135,5 +147,9 @@ public class MainActivity extends AppCompatActivity {
     }
     public void popUp(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+     protected void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putString("cle2", getTxtValeur().toString());
     }
 }
